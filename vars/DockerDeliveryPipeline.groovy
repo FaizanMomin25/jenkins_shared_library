@@ -38,7 +38,4 @@ def call(body) {
             }
         }
     }
-    def getPlatformName() {
-        return config.platform
-    }
 }
