@@ -9,6 +9,7 @@ def call(body) {
             registryURI = "https://registry.hub.docker.com/"
             registry = "faizanmomin2508/faizan_cloudethix_nginx"
             registryCredential = '01_docker_Hub_creds'
+            platform = getPlatformName()
         }
         stages {
             stage('Building image from project dir from shared library') {
@@ -18,6 +19,7 @@ def call(body) {
                 }
                 steps {
                     script {
+                        sh 'echo  "${env.platform}"'
                         def app = docker.build(tag_commit_id)
                         docker.withRegistry(registry_endpoint, registryCredential) {
                             app.push()
@@ -38,4 +40,7 @@ def call(body) {
             }
         }
     }
+}
+def getPlatformName() {
+    return config.platform
 }
